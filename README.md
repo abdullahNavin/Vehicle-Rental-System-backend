@@ -33,7 +33,7 @@ A comprehensive backend API for managing vehicle rentals, built with modern tech
 - User registration and login with secure password hashing (bcryptjs)
 - JWT-based authentication for secure API access
 - Role-based access control (RBAC) - Admin and Customer roles
-- Token expiration and refresh mechanisms
+- Token expiration
 
 ### Vehicle Management
 - Add, update, and retrieve vehicle listings
@@ -45,7 +45,6 @@ A comprehensive backend API for managing vehicle rentals, built with modern tech
 - Create and manage vehicle bookings
 - Check vehicle availability for date ranges
 - Booking confirmation and cancellation
-- Booking history tracking
 
 ### User Management
 - User profile management
@@ -100,8 +99,7 @@ A comprehensive backend API for managing vehicle rentals, built with modern tech
 
 #### 1. Clone the Repository
 ```bash
-git clone <repository-url>
-cd Vehicle\ Rental\ System
+https://github.com/abdullahNavin/Vehicle-Rental-System-backend
 ```
 
 #### 2. Install Dependencies
@@ -113,19 +111,14 @@ npm install
 Create a `.env` file in the root directory:
 ```env
 # Database Configuration
-DB_HOST=localhost
-DB_PORT=5432
-DB_NAME=vehicle_rental_db
-DB_USER=postgres
-DB_PASSWORD=your_password
+CONNECTION_STRING
+PORT
 
 # JWT Configuration
-JWT_SECRET=your_jwt_secret_key
-JWT_EXPIRATION=6h
+JWT_SECRET
 
 # Server Configuration
-PORT=3000
-NODE_ENV=development
+PORT=5000
 ```
 
 #### 4. Database Setup
@@ -134,18 +127,12 @@ Connect to PostgreSQL and create the database:
 CREATE DATABASE vehicle_rental_db;
 ```
 
-#### 5. Run Database Migrations
-```bash
-# Initialize database schema (run db.ts)
-npm run dev
-```
-
-#### 6. Start the Development Server
+#### 5. Start the Development Server
 ```bash
 npm run dev
 ```
 
-The server will start at `http://localhost:3000`
+The server will start at `http://localhost:5000`
 
 ---
 
@@ -164,11 +151,10 @@ This uses tsx to watch your TypeScript files and automatically restart the serve
 
 Use tools like **Postman**, **Insomnia**, or **cURL** to test the API endpoints.
 
-#### Example: User Registration
+#### Example: User Signup
 ```bash
-curl -X POST http://localhost:3000/api/v1/auth/register \
-  -H "Content-Type: application/json" \
-  -d '{
+POST http://localhost:5000/api/v1/auth/signup
+  {
     "name": "John Doe",
     "email": "john@example.com",
     "password": "securePassword123",
@@ -179,9 +165,8 @@ curl -X POST http://localhost:3000/api/v1/auth/register \
 
 #### Example: User Login
 ```bash
-curl -X POST http://localhost:3000/api/v1/auth/login \
-  -H "Content-Type: application/json" \
-  -d '{
+POST http://localhost:5000/api/v1/auth/login
+  {
     "email": "john@example.com",
     "password": "securePassword123"
   }'
@@ -192,28 +177,8 @@ curl -X POST http://localhost:3000/api/v1/auth/login \
 ## 🔌 API Endpoints
 
 ### Authentication Routes (`/api/v1/auth`)
-- `POST /register` - Register a new user
+- `POST /signup` - Register a new user
 - `POST /login` - User login with JWT token generation
-
-### Vehicles Routes (`/api/v1/vehicles`)
-- `GET /` - Get all vehicles
-- `GET /:id` - Get vehicle details
-- `POST /` - Add new vehicle (Admin only)
-- `PUT /:id` - Update vehicle (Admin only)
-- `DELETE /:id` - Delete vehicle (Admin only)
-
-### Bookings Routes (`/api/v1/bookings`)
-- `GET /` - Get all bookings
-- `GET /:id` - Get booking details
-- `POST /` - Create new booking
-- `PUT /:id` - Update booking
-- `DELETE /:id` - Cancel booking
-
-### Users Routes (`/api/v1/users`)
-- `GET /` - Get all users (Admin only)
-- `GET /:id` - Get user profile
-- `PUT /:id` - Update user profile
-- `DELETE /:id` - Delete user (Admin only)
 
 ---
 
@@ -279,15 +244,10 @@ Authorization: Bearer <your_jwt_token>
 
 ---
 
-## 📝 License
-
-ISC
-
----
 
 ## 👤 Author
 
-Your Name
+Your Name Abdullah Navin
 
 ---
 
@@ -297,4 +257,4 @@ For issues or questions, please open an issue in the repository or contact the d
 
 ---
 
-**Last Updated:** December 2024
+**Last Updated:** December 2025
