@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { vehicleService } from "./vehicles.service";
+import { bookingService } from "../booking/booking.service";
 
 const addVehicel = async (req: Request, res: Response) => {
     const payload = req.body;
@@ -60,7 +61,7 @@ const getAllVehicles = async (req: Request, res: Response) => {
 // get single vehicle
 const getSingleVehicle = async (req: Request, res: Response) => {
     const id = req.params.vehicleId
-    console.log(id);
+    // console.log(id);
     try {
         const result = await vehicleService.getSingleVehicle(id as string)
         // console.log(result.rows);
@@ -127,6 +128,16 @@ const updateVehicle = async (req: Request, res: Response) => {
 const deleteVehicle = async (req: Request, res: Response) => {
     const id = req.params.vehicleId;
     try {
+
+        const checkBookingOnVehicleId = await bookingService.getBookingByVehicleIdOrUserId({ vehicleId: parseInt(id as string) })
+
+        if (checkBookingOnVehicleId.rows.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: "Vehicle has active bookings and cannot be deleted"
+            })
+        }
+
         const result = await vehicleService.deleteVehicle(id as string)
         // console.log(result);
         if (result.rowCount === 0) {

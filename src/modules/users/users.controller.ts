@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { usersService } from "./users.service";
+import { bookingService } from "../booking/booking.service";
 
 const getAllUsers = async (req: Request, res: Response) => {
     try {
@@ -33,6 +34,16 @@ const getAllUsers = async (req: Request, res: Response) => {
 const deleteUser = async (req: Request, res: Response) => {
     const id = req.params.userId;
     try {
+
+        const checkBookingOnUserId = await bookingService.getBookingByVehicleIdOrUserId({ userId: parseInt(id as string) })
+        
+        if (checkBookingOnUserId.rows.length > 0) {
+            return res.status(400).json({
+                success: false,
+                message: "User has active bookings and cannot be deleted"
+            })
+        }
+
         const result = await usersService.deleteUser(id as string)
 
         if (result.rowCount === 0) {

@@ -2,9 +2,11 @@ import jwt, { JwtPayload } from 'jsonwebtoken';
 import { NextFunction, Request, Response } from "express"
 import config from '../config';
 
-const auth = (...role: string[]) => {
+const bookingAuth = (...role: string[]) => {
     return (req: Request, res: Response, next: NextFunction) => {
+
         const headersToken = req.headers.authorization;
+
         if (!headersToken) {
             return res.status(401).json({
                 success: false,
@@ -37,18 +39,9 @@ const auth = (...role: string[]) => {
             })
         }
 
-        if (decode.role === 'customer' && req?.params?.userId && role.includes('customer')) {
-            if (decode.id != req?.params?.userId) {
-                return res.status(403).json({
-                    success: false,
-                    message: 'Forbidden access customer'
-                })
-            }
-        }
-
         next()
 
     }
 }
 
-export default auth;
+export default bookingAuth;
