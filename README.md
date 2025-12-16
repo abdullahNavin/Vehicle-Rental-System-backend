@@ -23,7 +23,7 @@ A comprehensive backend API for managing vehicle rentals, built with modern tech
 
 **Description:** A full-featured REST API for managing vehicle rental operations, including user authentication, vehicle management, booking system, and user administration. The system supports multiple user roles (Admin, Customer) with role-based access control.
 
-**Live URL:** *(To be deployed)*
+**Live URL:** *https://vehicle-rental-system-delta-five.vercel.app/*
 
 ---
 
